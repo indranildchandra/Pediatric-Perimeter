@@ -1,0 +1,24 @@
+# Pediatric Perimeter - Gaze Tracking Algorithm
+
+
+Step1: Face Detection using Viola-Jones algorithm (Haar Cascade Classifier).
+
+Step2: Filter out False Faces detected (False Positives) and No Faces Detected (False Negatives) using Largest Blob Analysis.
+
+Step3: Apply the Segmented Face Image to Fast Radial Symmetry Transform and get approximate Pupil Centers.
+
+Step4: Use Connected Component Analysis to find the most probable Pupil Centers' coordinates (Centroid of two largest blobs).
+
+Step5: Use Adaptive Histogram Equalization to improve the Image Contrast and then apply Canny Edge algorithm to detect Edges.
+
+Step6: Construct a Binary Mask using results from Step 3, 4 and 5 and apply to the original Image (Grayscale).
+
+Step7: Use Delaunay Triangulation method to find the boundaries of the pupil.
+
+Step8: Use Haar Cascade Classifier to detect Nose in the Image. Evaluate the Centroid of the Bounding Box defining boundary of Nose.
+       Filter out False Nose detected (False Positives) and No Nose Detected (False Negatives) using Largest Blob Analysis.
+
+Step9: Use the Pupil coordinates and the coordinate of Centroid of Nose region to evaluate the rotation and skew of the Facial Plane.
+       Facial Plane is defined by the triangle with the pupils and nose of the face in the Image at its vertex points.
+
+Step10: Calculate the change in Area and length of edges of Triangular Facial Plane and calculate the Gaze position of the subject.
